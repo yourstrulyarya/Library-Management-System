@@ -1,0 +1,200 @@
+[
+  {
+    "transaction_id": "T001",
+    "student_id": "S001",
+    "book_id": "B001",
+    "issue_date": "2026-08-15",
+    "due_date": "2026-08-29",
+    "return_date": null,
+    "status": "Active",
+    "fine": 0,
+    "fine_paid": false
+  },
+  {
+    "transaction_id": "T002",
+    "student_id": "S003",
+    "book_id": "B001",
+    "issue_date": "2026-08-05",
+    "due_date": "2026-08-19",
+    "return_date": null,
+    "status": "Active",
+    "fine": 0,
+    "fine_paid": false
+  },
+  {
+    "transaction_id": "T003",
+    "student_id": "S002",
+    "book_id": "B002",
+    "issue_date": "2026-07-20",
+    "due_date": "2026-08-03",
+    "return_date": "2026-08-10",
+    "status": "Returned",
+    "fine": 35,
+    "fine_paid": true
+  },
+  {
+    "transaction_id": "T004",
+    "student_id": "S004",
+    "book_id": "B002",
+    "issue_date": "2026-08-12",
+    "due_date": "2026-08-26",
+    "return_date": null,
+    "status": "Active",
+    "fine": 0,
+    "fine_paid": false
+  },
+  {
+    "transaction_id": "T005",
+    "student_id": "S005",
+    "book_id": "B002",
+    "issue_date": "2026-08-18",
+    "due_date": "2026-09-01",
+    "return_date": null,
+    "status": "Active",
+    "fine": 0,
+    "fine_paid": false
+  },
+  {
+    "transaction_id": "T006",
+    "student_id": "S001",
+    "book_id": "B005",
+    "issue_date": "2026-08-01",
+    "due_date": "2026-08-15",
+    "return_date": null,
+    "status": "Active",
+    "fine": 0,
+    "fine_paid": false
+  },
+  {
+    "transaction_id": "T007",
+    "student_id": "S006",
+    "book_id": "B005",
+    "issue_date": "2026-08-10",
+    "due_date": "2026-08-24",
+    "return_date": null,
+    "status": "Active",
+    "fine": 0,
+    "fine_paid": false
+  },
+  {
+    "transaction_id": "T008",
+    "student_id": "S004",
+    "book_id": "B009",
+    "issue_date": "2026-08-01",
+    "due_date": "2026-08-15",
+    "return_date": null,
+    "status": "Active",
+    "fine": 0,
+    "fine_paid": false
+  },
+  {
+    "transaction_id": "T009",
+    "student_id": "S003",
+    "book_id": "B009",
+    "issue_date": "2026-08-05",
+    "due_date": "2026-08-19",
+    "return_date": null,
+    "status": "Active",
+    "fine": 0,
+    "fine_paid": false
+  },
+  {
+    "transaction_id": "T010",
+    "student_id": "S002",
+    "book_id": "B009",
+    "issue_date": "2026-08-20",
+    "due_date": "2026-09-03",
+    "return_date": null,
+    "status": "Active",
+    "fine": 0,
+    "fine_paid": false
+  },
+  {
+    "transaction_id": "T011",
+    "student_id": "S005",
+    "book_id": "B007",
+    "issue_date": "2026-06-01",
+    "due_date": "2026-06-15",
+    "return_date": "2026-06-14",
+    "status": "Returned",
+    "fine": 0,
+    "fine_paid": true
+  },
+  {
+    "transaction_id": "T012",
+    "student_id": "S001",
+    "book_id": "B007",
+    "issue_date": "2026-08-22",
+    "due_date": "2026-09-05",
+    "return_date": null,
+    "status": "Active",
+    "fine": 0,
+    "fine_paid": false
+  },
+  {
+    "transaction_id": "T013",
+    "student_id": "S006",
+    "book_id": "B004",
+    "issue_date": "2026-08-16",
+    "due_date": "2026-08-30",
+    "return_date": null,
+    "status": "Active",
+    "fine": 0,
+    "fine_paid": false
+  },
+  {
+    "transaction_id": "T014",
+    "student_id": "S003",
+    "book_id": "B008",
+    "issue_date": "2026-08-19",
+    "due_date": "2026-09-02",
+    "return_date": null,
+    "status": "Active",
+    "fine": 0,
+    "fine_paid": false
+  },
+  {
+    "transaction_id": "T015",
+    "student_id": "S002",
+    "book_id": "B010",
+    "issue_date": "2026-08-21",
+    "due_date": "2026-09-04",
+    "return_date": null,
+    "status": "Active",
+    "fine": 0,
+    "fine_paid": false
+  },
+  {
+    "transaction_id": "T016",
+    "student_id": "S006",
+    "book_id": "B012",
+    "issue_date": "2026-08-15",
+    "due_date": "2026-08-29",
+    "return_date": null,
+    "status": "Active",
+    "fine": 0,
+    "fine_paid": false
+  },
+  {
+    "transaction_id": "T017",
+    "student_id": "S003",
+    "book_id": "B003",
+    "issue_date": "2026-05-01",
+    "due_date": "2026-05-15",
+    "return_date": "2026-05-20",
+    "status": "Returned",
+    "fine": 25,
+    "fine_paid": false
+  },
+  {
+    "transaction_id": "T018",
+    "student_id": "S007",
+    "book_id": "B003",
+    "issue_date": "2026-08-27",
+    "due_date": "2026-09-10",
+    "return_date": null,
+    "status": "Active",
+    "fine": 0,
+    "fine_paid": false
+  }
+]

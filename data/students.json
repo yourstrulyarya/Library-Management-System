@@ -1,0 +1,79 @@
+[
+  {
+    "student_id": "S001",
+    "name": "Ananya Sharma",
+    "email": "ananya.sharma@college.edu",
+    "phone": "9876543210",
+    "course": "B.Tech",
+    "year": 3,
+    "department": "Computer Science",
+    "registration_date": "2024-07-12",
+    "membership_status": "Active"
+  },
+  {
+    "student_id": "S002",
+    "name": "Rohan Verma",
+    "email": "rohan.verma@college.edu",
+    "phone": "9876543211",
+    "course": "B.A.",
+    "year": 2,
+    "department": "English Literature",
+    "registration_date": "2025-01-08",
+    "membership_status": "Active"
+  },
+  {
+    "student_id": "S003",
+    "name": "Meera Nair",
+    "email": "meera.nair@college.edu",
+    "phone": "9876543212",
+    "course": "M.Sc",
+    "year": 1,
+    "department": "Physics",
+    "registration_date": "2025-08-19",
+    "membership_status": "Active"
+  },
+  {
+    "student_id": "S004",
+    "name": "Aditya Kulkarni",
+    "email": "aditya.kulkarni@college.edu",
+    "phone": "9876543213",
+    "course": "B.Tech",
+    "year": 4,
+    "department": "Computer Science",
+    "registration_date": "2023-07-15",
+    "membership_status": "Active"
+  },
+  {
+    "student_id": "S005",
+    "name": "Ishita Roy",
+    "email": "ishita.roy@college.edu",
+    "phone": "9876543214",
+    "course": "B.A.",
+    "year": 1,
+    "department": "Philosophy",
+    "registration_date": "2026-01-20",
+    "membership_status": "Active"
+  },
+  {
+    "student_id": "S006",
+    "name": "Kabir Singh",
+    "email": "kabir.singh@college.edu",
+    "phone": "9876543215",
+    "course": "M.A.",
+    "year": 2,
+    "department": "History",
+    "registration_date": "2024-11-02",
+    "membership_status": "Suspended"
+  },
+  {
+    "student_id": "S007",
+    "name": "Avika Soni",
+    "email": "avikasoni05@outlook.com",
+    "phone": "1234567890",
+    "course": "B.tech",
+    "year": 2,
+    "department": "AI",
+    "registration_date": "2026-08-27",
+    "membership_status": "Active"
+  }
+]

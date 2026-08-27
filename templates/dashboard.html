@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — {{ library_name }}{% endblock %}
+{% block header %}Dashboard{% endblock %}
+{% block content %}
+
+<div class="stat-grid">
+  <div class="stat-card">
+    <span class="stat-tab">CATALOGUE</span>
+    <span class="stat-num">{{ stats.total_books }}</span>
+    <span class="stat-label">Total Book Copies</span>
+    <span class="stat-foot">{{ stats.total_titles }} distinct titles</span>
+  </div>
+  <div class="stat-card stat-card-moss">
+    <span class="stat-tab">ON SHELF</span>
+    <span class="stat-num">{{ stats.available_books }}</span>
+    <span class="stat-label">Available Books</span>
+  </div>
+  <div class="stat-card stat-card-umber">
+    <span class="stat-tab">ON LOAN</span>
+    <span class="stat-num">{{ stats.issued_books }}</span>
+    <span class="stat-label">Issued Books</span>
+    <span class="stat-foot">{{ stats.active_loans }} active transactions</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-tab">ROSTER</span>
+    <span class="stat-num">{{ stats.total_students }}</span>
+    <span class="stat-label">Registered Members</span>
+  </div>
+  <div class="stat-card stat-card-maroon">
+    <span class="stat-tab">ATTENTION</span>
+    <span class="stat-num">{{ stats.overdue_books }}</span>
+    <span class="stat-label">Overdue Books</span>
+  </div>
+  <div class="stat-card stat-card-gold">
+    <span class="stat-tab">LEDGER</span>
+    <span class="stat-num">{{ currency }}{{ stats.pending_fines_total }}</span>
+    <span class="stat-label">Pending Fines</span>
+  </div>
+</div>
+
+<div class="two-col">
+  <section class="panel">
+    <h2>Recently Issued</h2>
+    {% if stats.recent_issued %}
+    <table class="ledger">
+      <thead><tr><th>Txn</th><th>Book</th><th>Member</th><th>Issued</th><th>Due</th></tr></thead>
+      <tbody>
+        {% for t in stats.recent_issued %}
+        <tr>
+          <td class="mono">{{ t.transaction_id }}</td>
+          <td>{{ t.book_title }}</td>
+          <td>{{ t.student_name }}</td>
+          <td class="mono">{{ t.issue_date }}</td>
+          <td class="mono">{{ t.due_date }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="empty">No issues recorded yet.</p>
+    {% endif %}
+  </section>
+
+  <section class="panel">
+    <h2>Recently Returned</h2>
+    {% if stats.recent_returned %}
+    <table class="ledger">
+      <thead><tr><th>Txn</th><th>Book</th><th>Member</th><th>Returned</th><th>Fine</th></tr></thead>
+      <tbody>
+        {% for t in stats.recent_returned %}
+        <tr>
+          <td class="mono">{{ t.transaction_id }}</td>
+          <td>{{ t.book_title }}</td>
+          <td>{{ t.student_name }}</td>
+          <td class="mono">{{ t.return_date }}</td>
+          <td class="mono">{{ currency }}{{ t.fine }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="empty">No returns recorded yet.</p>
+    {% endif %}
+  </section>
+</div>
+
+<div class="quick-actions">
+  <a class="btn btn-primary" href="{{ url_for('issue_book') }}">+ Issue a Book</a>
+  <a class="btn btn-secondary" href="{{ url_for('return_book') }}">&#8635; Return a Book</a>
+  <a class="btn btn-secondary" href="{{ url_for('add_book') }}">+ Add Book</a>
+  <a class="btn btn-secondary" href="{{ url_for('add_student') }}">+ Register Member</a>
+</div>
+
+{% endblock %}

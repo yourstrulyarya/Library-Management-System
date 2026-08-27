@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Issue Book — {{ library_name }}{% endblock %}
+{% block header %}Issue Book{% endblock %}
+{% block content %}
+
+<form method="POST" class="form form-card">
+  <div class="form-grid">
+    <div class="field">
+      <label for="student_id">Member</label>
+      <input list="student-list" name="student_id" id="student_id" placeholder="Search member by name or ID&hellip;" required autocomplete="off">
+      <datalist id="student-list">
+        {% for s in students %}
+        <option value="{{ s.student_id }}">{{ s.name }} ({{ s.course }}) &mdash; {{ s.membership_status }}</option>
+        {% endfor %}
+      </datalist>
+    </div>
+    <div class="field">
+      <label for="book_id">Book</label>
+      <input list="book-list" name="book_id" id="book_id" placeholder="Search book by title or ID&hellip;" required autocomplete="off">
+      <datalist id="book-list">
+        {% for b in books %}
+        <option value="{{ b.book_id }}">{{ b.title }} &mdash; {{ b.author }} ({{ b.available_copies }} available)</option>
+        {% endfor %}
+      </datalist>
+    </div>
+  </div>
+  <p class="form-hint">Enter the exact Member ID and Book ID shown in the dropdown suggestions above.</p>
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">Issue Book</button>
+  </div>
+</form>
+
+<section class="panel">
+  <h2>Books Available to Issue</h2>
+  {% if books %}
+  <table class="ledger">
+    <thead><tr><th>ID</th><th>Title</th><th>Author</th><th>Available</th></tr></thead>
+    <tbody>
+      {% for b in books %}
+      <tr>
+        <td class="mono">{{ b.book_id }}</td>
+        <td>{{ b.title }}</td>
+        <td>{{ b.author }}</td>
+        <td class="mono">{{ b.available_copies }} / {{ b.total_copies }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">No books are currently available.</p>
+  {% endif %}
+</section>
+{% endblock %}

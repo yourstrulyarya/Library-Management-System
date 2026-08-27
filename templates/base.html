@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}{{ library_name }}{% endblock %}</title>
+<script>
+  // Applied before first paint so there's no flash of the wrong theme
+  // or a sidebar that pops back open after being hidden.
+  (function () {
+    try {
+      var theme = localStorage.getItem('lms-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+      if (localStorage.getItem('lms-sidebar-hidden') === 'true') {
+        document.documentElement.setAttribute('data-sidebar', 'hidden');
+      }
+    } catch (e) { /* localStorage unavailable — fall back to defaults */ }
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="role-{{ current_role or 'guest' }}">
+
+{% if current_role == 'librarian' %}
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark">&#9776;</span>
+      <div class="brand-text">
+        <div class="brand-title">{{ library_name }}</div>
+        <div class="brand-sub">Librarian Desk</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="{{ url_for('dashboard') }}" class="{{ 'active' if request.endpoint=='dashboard' }}" title="Dashboard"><span class="nav-num">01</span><span class="nav-text">Dashboard</span></a>
+      <a href="{{ url_for('list_books') }}" class="{{ 'active' if request.endpoint in ['list_books','book_detail','add_book','edit_book'] }}" title="Books"><span class="nav-num">02</span><span class="nav-text">Books</span></a>
+      <a href="{{ url_for('list_students') }}" class="{{ 'active' if request.endpoint in ['list_students','student_detail','add_student','edit_student'] }}" title="Members"><span class="nav-num">03</span><span class="nav-text">Members</span></a>
+      <a href="{{ url_for('issue_book') }}" class="{{ 'active' if request.endpoint=='issue_book' }}" title="Issue Book"><span class="nav-num">04</span><span class="nav-text">Issue Book</span></a>
+      <a href="{{ url_for('return_book') }}" class="{{ 'active' if request.endpoint=='return_book' }}" title="Return Book"><span class="nav-num">05</span><span class="nav-text">Return Book</span></a>
+      <a href="{{ url_for('list_transactions') }}" class="{{ 'active' if request.endpoint=='list_transactions' }}" title="Transactions"><span class="nav-num">06</span><span class="nav-text">Transactions</span></a>
+      <a href="{{ url_for('fines_page') }}" class="{{ 'active' if request.endpoint=='fines_page' }}" title="Fines"><span class="nav-num">07</span><span class="nav-text">Fines</span></a>
+      <a href="{{ url_for('settings_page') }}" class="{{ 'active' if request.endpoint=='settings_page' }}" title="Settings"><span class="nav-num">08</span><span class="nav-text">Settings</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="signed-in-as nav-text">Signed in as <strong>{{ display_name or 'Librarian' }}</strong></div>
+      <a class="switch-role" href="{{ url_for('logout') }}" title="Log out"><span class="nav-text">&#8617; Log out</span><span class="icon-only">&#9099;</span></a>
+    </div>
+  </aside>
+
+  <main class="content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button type="button" class="icon-btn" onclick="toggleSidebar()" title="Show/hide menu" aria-label="Toggle menu">&#9776;</button>
+        <div class="topbar-title">{% block header %}{% endblock %}</div>
+      </div>
+      <div class="topbar-right">
+        <button type="button" class="icon-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="Toggle light/dark theme" aria-label="Toggle theme">
+          <span id="theme-toggle-icon">&#9789;</span>
+        </button>
+        <div class="topbar-date">{{ today }}</div>
+      </div>
+    </header>
+    {% include "_flashes.html" %}
+    {% block content %}{% endblock %}
+  </main>
+</div>
+
+{% else %}
+<button type="button" class="icon-btn theme-btn-floating" onclick="toggleTheme()" title="Toggle light/dark theme" aria-label="Toggle theme">
+  <span id="theme-toggle-icon">&#9789;</span>
+</button>
+<main class="content-plain">
+  {% include "_flashes.html" %}
+  {% block plain_content %}{% endblock %}
+</main>
+{% endif %}
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

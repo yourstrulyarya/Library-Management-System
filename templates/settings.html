@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Settings — {{ library_name }}{% endblock %}
+{% block header %}Settings{% endblock %}
+{% block content %}
+
+<form method="POST" class="form form-card">
+  <div class="form-grid">
+    <div class="field">
+      <label for="library_name">Library Name</label>
+      <input type="text" name="library_name" id="library_name" value="{{ settings.library_name }}" required>
+    </div>
+    <div class="field">
+      <label for="currency_symbol">Currency Symbol</label>
+      <input type="text" name="currency_symbol" id="currency_symbol" value="{{ settings.currency_symbol }}" maxlength="3" required>
+    </div>
+    <div class="field">
+      <label for="borrowing_period_days">Borrowing Period (days)</label>
+      <input type="number" name="borrowing_period_days" id="borrowing_period_days" min="1" value="{{ settings.borrowing_period_days }}" required>
+    </div>
+    <div class="field">
+      <label for="fine_per_day">Fine per Overdue Day</label>
+      <input type="number" name="fine_per_day" id="fine_per_day" min="0" value="{{ settings.fine_per_day }}" required>
+    </div>
+    <div class="field">
+      <label for="max_active_loans_per_student">Max Books per Member</label>
+      <input type="number" name="max_active_loans_per_student" id="max_active_loans_per_student" min="1" value="{{ settings.max_active_loans_per_student }}" required>
+    </div>
+  </div>
+  <p class="form-hint">Changes apply to new transactions going forward &mdash; existing loans keep their original due dates.</p>
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">Save Settings</button>
+  </div>
+</form>
+{% endblock %}

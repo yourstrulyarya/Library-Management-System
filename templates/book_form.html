@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Add Book' if mode == 'add' else 'Edit Book' }} — {{ library_name }}{% endblock %}
+{% block header %}{{ 'Add Book' if mode == 'add' else 'Edit Book' }}{% endblock %}
+{% block content %}
+
+<form method="POST" class="form form-card">
+  <div class="form-grid">
+    <div class="field">
+      <label for="title">Title</label>
+      <input type="text" name="title" id="title" value="{{ book.title or '' }}" required>
+    </div>
+    <div class="field">
+      <label for="author">Author</label>
+      <input type="text" name="author" id="author" value="{{ book.author or '' }}" required>
+    </div>
+    <div class="field">
+      <label for="isbn">ISBN</label>
+      <input type="text" name="isbn" id="isbn" value="{{ book.isbn or '' }}" required>
+    </div>
+    <div class="field">
+      <label for="category">Category</label>
+      <input type="text" name="category" id="category" list="category-list" value="{{ book.category or '' }}" required>
+      <datalist id="category-list">
+        {% for c in categories %}<option value="{{ c }}">{% endfor %}
+      </datalist>
+    </div>
+    <div class="field">
+      <label for="publisher">Publisher</label>
+      <input type="text" name="publisher" id="publisher" value="{{ book.publisher or '' }}" required>
+    </div>
+    <div class="field">
+      <label for="publication_year">Publication Year</label>
+      <input type="number" name="publication_year" id="publication_year" value="{{ book.publication_year or '' }}" required>
+    </div>
+    <div class="field">
+      <label for="total_copies">Total Copies</label>
+      <input type="number" name="total_copies" id="total_copies" min="0" value="{{ book.total_copies if book.total_copies is defined else '' }}" required>
+    </div>
+    <div class="field">
+      <label for="shelf_number">Shelf Number</label>
+      <input type="text" name="shelf_number" id="shelf_number" value="{{ book.shelf_number or '' }}" required>
+    </div>
+  </div>
+
+  {% if mode == 'edit' %}
+  <p class="form-hint">Available copies are recalculated automatically from total copies minus active loans.</p>
+  {% endif %}
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">{{ 'Add Book' if mode == 'add' else 'Save Changes' }}</button>
+    <a class="btn btn-ghost" href="{{ url_for('list_books') }}">Cancel</a>
+  </div>
+</form>
+{% endblock %}

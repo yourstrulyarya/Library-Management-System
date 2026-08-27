@@ -1,0 +1,7 @@
+[
+  {
+    "user_id": "admin",
+    "name": "Head Librarian",
+    "password_hash": "scrypt:32768:8:1$ZNFnBbVOwk49a1Ca$f1df2dfc6ba7a4529cfadd04d1bd4f58e9ca239cc6e97cbe7905b33e7e50afe3bb32a1e887ae66813a0c0e68c938402ac683371e0d4b2e62ef2b48659c02dbee"
+  }
+]

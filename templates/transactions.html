@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Transactions — {{ library_name }}{% endblock %}
+{% block header %}Transaction History{% endblock %}
+{% block content %}
+
+<div class="toolbar">
+  <form method="GET" class="search-form">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search by book, member, or ID&hellip;">
+    <select name="status">
+      <option value="">All statuses</option>
+      <option value="Active" {{ 'selected' if status=='Active' }}>Active</option>
+      <option value="Overdue" {{ 'selected' if status=='Overdue' }}>Overdue</option>
+      <option value="Returned" {{ 'selected' if status=='Returned' }}>Returned</option>
+    </select>
+    <button type="submit" class="btn btn-secondary">Filter</button>
+    {% if query or status %}<a class="btn btn-ghost" href="{{ url_for('list_transactions') }}">Clear</a>{% endif %}
+  </form>
+</div>
+
+<p class="result-count">{{ transactions|length }} transaction{{ '' if transactions|length == 1 else 's' }} found</p>
+
+<div class="table-wrap">
+<table class="ledger">
+  <thead><tr><th>Txn</th><th>Member</th><th>Book</th><th>Issued</th><th>Due</th><th>Returned</th><th>Status</th><th>Fine</th></tr></thead>
+  <tbody>
+    {% for t in transactions %}
+    <tr>
+      <td class="mono">{{ t.transaction_id }}</td>
+      <td><a href="{{ url_for('student_detail', student_id=t.student_id) }}">{{ t.student_name }}</a></td>
+      <td><a href="{{ url_for('book_detail', book_id=t.book_id) }}">{{ t.book_title }}</a></td>
+      <td class="mono">{{ t.issue_date }}</td>
+      <td class="mono">{{ t.due_date }}</td>
+      <td class="mono">{{ t.return_date or '—' }}</td>
+      <td><span class="badge badge-{{ t.display_status|lower }}">{{ t.display_status }}</span></td>
+      <td class="mono">{{ currency }}{{ t.live_fine if t.status=='Active' else t.fine }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="8" class="empty">No transactions match your search.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

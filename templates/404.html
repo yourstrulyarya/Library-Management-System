@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Not Found — {{ library_name }}</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<main class="content-plain">
+  <div class="gate">
+    <div class="gate-card">
+      <div class="gate-seal">&#128269;</div>
+      <h1>Page Not Found</h1>
+      <p class="gate-tagline">That shelf doesn't seem to exist in this catalogue.</p>
+      <a class="btn btn-primary" href="{{ url_for('login') }}">Return to the Front Desk</a>
+    </div>
+  </div>
+</main>
+</body>
+</html>

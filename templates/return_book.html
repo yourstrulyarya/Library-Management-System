@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Return Book — {{ library_name }}{% endblock %}
+{% block header %}Return Book{% endblock %}
+{% block content %}
+
+<form method="POST" class="form form-card form-inline-wide">
+  <div class="field">
+    <label for="transaction_id">Transaction ID</label>
+    <input list="txn-list" name="transaction_id" id="transaction_id" placeholder="e.g. T004" required autocomplete="off">
+    <datalist id="txn-list">
+      {% for t in active_loans %}
+      <option value="{{ t.transaction_id }}">{{ t.book_title }} &mdash; {{ t.student_name }} (due {{ t.due_date }})</option>
+      {% endfor %}
+    </datalist>
+  </div>
+  <button type="submit" class="btn btn-primary">Mark Returned</button>
+</form>
+
+<section class="panel">
+  <h2>Currently Issued Books</h2>
+  {% if active_loans %}
+  <table class="ledger">
+    <thead><tr><th>Txn</th><th>Book</th><th>Member</th><th>Issued</th><th>Due</th><th>Status</th><th></th></tr></thead>
+    <tbody>
+      {% for t in active_loans %}
+      <tr>
+        <td class="mono">{{ t.transaction_id }}</td>
+        <td>{{ t.book_title }}</td>
+        <td>{{ t.student_name }}</td>
+        <td class="mono">{{ t.issue_date }}</td>
+        <td class="mono">{{ t.due_date }}</td>
+        <td><span class="badge badge-{{ t.display_status|lower }}">{{ t.display_status }}{% if t.overdue_days %} &middot; {{ t.overdue_days }}d{% endif %}</span></td>
+        <td class="row-actions">
+          <form method="POST" action="{{ url_for('return_book') }}" class="inline-form">
+            <input type="hidden" name="transaction_id" value="{{ t.transaction_id }}">
+            <button type="submit" class="btn-link">Return</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">No books are currently on loan.</p>
+  {% endif %}
+</section>
+{% endblock %}

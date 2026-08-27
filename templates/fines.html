@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Fines — {{ library_name }}{% endblock %}
+{% block header %}Fines{% endblock %}
+{% block content %}
+
+<div class="stat-grid stat-grid-slim">
+  <div class="stat-card stat-card-maroon">
+    <span class="stat-tab">OWED</span>
+    <span class="stat-num">{{ currency }}{{ total_pending }}</span>
+    <span class="stat-label">Total Pending Fines</span>
+  </div>
+  <div class="stat-card stat-card-moss">
+    <span class="stat-tab">RECOVERED</span>
+    <span class="stat-num">{{ paid|length }}</span>
+    <span class="stat-label">Fines Paid to Date</span>
+  </div>
+</div>
+
+<section class="panel">
+  <h2>Pending Fines</h2>
+  {% if pending %}
+  <table class="ledger">
+    <thead><tr><th>Txn</th><th>Member</th><th>Book</th><th>Due</th><th>Status</th><th>Amount</th><th></th></tr></thead>
+    <tbody>
+      {% for t in pending %}
+      <tr>
+        <td class="mono">{{ t.transaction_id }}</td>
+        <td><a href="{{ url_for('student_detail', student_id=t.student_id) }}">{{ t.student_name }}</a></td>
+        <td>{{ t.book_title }}</td>
+        <td class="mono">{{ t.due_date }}</td>
+        <td><span class="badge badge-{{ t.display_status|lower }}">{{ t.display_status }}</span></td>
+        <td class="mono">{{ currency }}{{ t.fine if t.status=='Returned' else t.live_fine }}</td>
+        <td class="row-actions">
+          <form method="POST" action="{{ url_for('pay_fine', transaction_id=t.transaction_id) }}" class="inline-form">
+            <button type="submit" class="btn-link" {{ 'disabled title="Return the book first to finalize this fine."' if t.status=='Active' }}>Mark Paid</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">No pending fines &mdash; the ledger is clean.</p>
+  {% endif %}
+</section>
+
+<div class="two-col">
+  <section class="panel">
+    <h2>Fines by Member</h2>
+    {% if by_student %}
+    <table class="ledger">
+      <thead><tr><th>Member</th><th>Items</th><th>Amount</th></tr></thead>
+      <tbody>
+        {% for row in by_student %}
+        <tr>
+          <td><a href="{{ url_for('student_detail', student_id=row.student_id) }}">{{ row.student_name }}</a></td>
+          <td class="mono">{{ row.count }}</td>
+          <td class="mono">{{ currency }}{{ row.amount }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="empty">No outstanding fines.</p>
+    {% endif %}
+  </section>
+
+  <section class="panel">
+    <h2>Paid Fines</h2>
+    {% if paid %}
+    <table class="ledger">
+      <thead><tr><th>Txn</th><th>Member</th><th>Book</th><th>Amount</th></tr></thead>
+      <tbody>
+        {% for t in paid %}
+        <tr>
+          <td class="mono">{{ t.transaction_id }}</td>
+          <td>{{ t.student_name }}</td>
+          <td>{{ t.book_title }}</td>
+          <td class="mono">{{ currency }}{{ t.fine }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="empty">No fines have been paid yet.</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

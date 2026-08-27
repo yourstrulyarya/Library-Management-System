@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Sign In — {{ library_name }}{% endblock %}
+{% block plain_content %}
+<div class="gate">
+  <div class="gate-card">
+    <div class="gate-seal">&#128214;</div>
+    <h1>{{ library_name }}</h1>
+    <p class="gate-tagline">Est. in JSON &middot; Bound in Flask &middot; Catalogued by hand</p>
+
+    <form method="POST" action="{{ url_for('login') }}" class="form">
+      <label for="user_id">User ID</label>
+      <input type="text" name="user_id" id="user_id" value="{{ user_id or '' }}" placeholder="e.g. admin" required autofocus autocomplete="username">
+
+      <label for="password" class="field-spaced">Password</label>
+      <input type="password" name="password" id="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required autocomplete="current-password">
+
+      <button type="submit" class="btn btn-primary btn-block field-spaced">Sign In</button>
+    </form>
+
+    <p class="gate-hint">Demo credentials &mdash; User ID: <code>admin</code> &middot; Password: <code>library@123</code></p>
+  </div>
+</div>
+{% endblock %}

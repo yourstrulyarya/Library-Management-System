@@ -1,0 +1,7 @@
+{
+  "borrowing_period_days": 14,
+  "fine_per_day": 5,
+  "currency_symbol": "\u20b9",
+  "library_name": "The Ivywood Athenaeum",
+  "max_active_loans_per_student": 5
+}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Register Member' if mode == 'add' else 'Edit Member' }} — {{ library_name }}{% endblock %}
+{% block header %}{{ 'Register Member' if mode == 'add' else 'Edit Member' }}{% endblock %}
+{% block content %}
+
+<form method="POST" class="form form-card">
+  <div class="form-grid">
+    <div class="field">
+      <label for="name">Full Name</label>
+      <input type="text" name="name" id="name" value="{{ student.name or '' }}" required>
+    </div>
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" value="{{ student.email or '' }}" required>
+    </div>
+    <div class="field">
+      <label for="phone">Phone</label>
+      <input type="text" name="phone" id="phone" value="{{ student.phone or '' }}" required>
+    </div>
+    <div class="field">
+      <label for="course">Course</label>
+      <input type="text" name="course" id="course" value="{{ student.course or '' }}" required>
+    </div>
+    <div class="field">
+      <label for="year">Year</label>
+      <input type="number" name="year" id="year" min="1" max="8" value="{{ student.year or '' }}" required>
+    </div>
+    <div class="field">
+      <label for="department">Department</label>
+      <input type="text" name="department" id="department" value="{{ student.department or '' }}" required>
+    </div>
+    <div class="field">
+      <label for="membership_status">Membership Status</label>
+      <select name="membership_status" id="membership_status">
+        <option value="Active" {{ 'selected' if student.membership_status == 'Active' or not student.membership_status }}>Active</option>
+        <option value="Suspended" {{ 'selected' if student.membership_status == 'Suspended' }}>Suspended</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">{{ 'Register Member' if mode == 'add' else 'Save Changes' }}</button>
+    <a class="btn btn-ghost" href="{{ url_for('list_students') }}">Cancel</a>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}{{ book.title }} — {{ library_name }}{% endblock %}
+{% block header %}Book Details{% endblock %}
+{% block content %}
+
+<div class="detail-card">
+  <div class="detail-card-head">
+    <div>
+      <span class="mono detail-id">{{ book.book_id }}</span>
+      <h1>{{ book.title }}</h1>
+      <p class="detail-sub">by {{ book.author }}</p>
+    </div>
+    <span class="badge badge-{{ book.status|lower|replace(' ', '-') }}">{{ book.status }}</span>
+  </div>
+
+  <dl class="detail-grid">
+    <div><dt>ISBN</dt><dd class="mono">{{ book.isbn }}</dd></div>
+    <div><dt>Category</dt><dd>{{ book.category }}</dd></div>
+    <div><dt>Publisher</dt><dd>{{ book.publisher }}</dd></div>
+    <div><dt>Publication Year</dt><dd>{{ book.publication_year }}</dd></div>
+    <div><dt>Shelf Number</dt><dd class="mono">{{ book.shelf_number }}</dd></div>
+    <div><dt>Copies</dt><dd class="mono">{{ book.available_copies }} available of {{ book.total_copies }}</dd></div>
+  </dl>
+
+  <div class="detail-actions">
+    <a class="btn btn-secondary" href="{{ url_for('edit_book', book_id=book.book_id) }}">Edit Book</a>
+    <form method="POST" action="{{ url_for('delete_book', book_id=book.book_id) }}" onsubmit="return confirm('Remove &quot;{{ book.title }}&quot; from the catalogue?');" class="inline-form">
+      <button type="submit" class="btn btn-danger">Remove Book</button>
+    </form>
+    <a class="btn btn-ghost" href="{{ url_for('list_books') }}">&#8617; Back to Books</a>
+  </div>
+</div>
+
+<section class="panel">
+  <h2>Borrowing History</h2>
+  {% if history %}
+  <table class="ledger">
+    <thead><tr><th>Txn</th><th>Member</th><th>Issued</th><th>Due</th><th>Returned</th><th>Status</th><th>Fine</th></tr></thead>
+    <tbody>
+      {% for t in history %}
+      <tr>
+        <td class="mono">{{ t.transaction_id }}</td>
+        <td>{{ t.student_name }}</td>
+        <td class="mono">{{ t.issue_date }}</td>
+        <td class="mono">{{ t.due_date }}</td>
+        <td class="mono">{{ t.return_date or '—' }}</td>
+        <td><span class="badge badge-{{ t.display_status|lower }}">{{ t.display_status }}</span></td>
+        <td class="mono">{{ currency }}{{ t.live_fine if t.status=='Active' else t.fine }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">This book has never been issued.</p>
+  {% endif %}
+</section>
+{% endblock %}
